@@ -410,7 +410,6 @@ export function initAboutAnimation(): void {
 
   if (!aboutContent && !aboutEducation) return;
 
-  // Animate left side (About content)
   if (aboutContent) {
     gsap.fromTo(
       aboutContent,
@@ -428,7 +427,6 @@ export function initAboutAnimation(): void {
       }
     );
 
-    // Animate highlights with stagger
     const highlights = aboutContent.querySelectorAll('.highlight');
     gsap.fromTo(
       highlights,
@@ -447,7 +445,6 @@ export function initAboutAnimation(): void {
     );
   }
 
-  // Animate right side (Education)
   if (aboutEducation) {
     gsap.fromTo(
       aboutEducation,
@@ -466,7 +463,6 @@ export function initAboutAnimation(): void {
     );
   }
 
-  // Animate education items with stagger
   if (educationItems.length > 0) {
     gsap.fromTo(
       educationItems,
@@ -484,15 +480,12 @@ export function initAboutAnimation(): void {
         },
       }
     );
-
-    // Add hover animations for education items using GSAP
     educationItems.forEach((item) => {
       const imageWrapper = item.querySelector('.education-image-wrapper');
       const dot = item.querySelector('.timeline-dot');
       const degree = item.querySelector('.education-degree');
 
       if (imageWrapper) {
-        // Set initial state
         gsap.set(imageWrapper, { 
           maxHeight: 0, 
           opacity: 0, 
@@ -546,8 +539,9 @@ export function initAboutAnimation(): void {
           }
 
           if (degree) {
+            const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
             gsap.to(degree, {
-              color: '#f0e6e6',
+              color: textColor || '#f0e6e6',
               duration: 0.3,
               ease: 'power2.out',
             });
