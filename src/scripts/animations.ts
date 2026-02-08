@@ -99,6 +99,7 @@ export function initAnimations(): void {
   initSlideAnimations();
   initStaggerAnimations();
   initNavbarAnimation();
+  initAboutAnimation();
 }
 
 function initFadeInAnimations(): void {
@@ -400,6 +401,161 @@ export function initThemeToggle(): void {
 
     tl.set(toggleBtn, { rotation: 0 });
   });
+}
+
+export function initAboutAnimation(): void {
+  const aboutContent = document.querySelector('[data-about="content"]');
+  const aboutEducation = document.querySelector('[data-about="education"]');
+  const educationItems = document.querySelectorAll('[data-education="item"]');
+
+  if (!aboutContent && !aboutEducation) return;
+
+  // Animate left side (About content)
+  if (aboutContent) {
+    gsap.fromTo(
+      aboutContent,
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: aboutContent,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    // Animate highlights with stagger
+    const highlights = aboutContent.querySelectorAll('.highlight');
+    gsap.fromTo(
+      highlights,
+      { opacity: 0.5 },
+      {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: aboutContent,
+          start: 'top 70%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  }
+
+  // Animate right side (Education)
+  if (aboutEducation) {
+    gsap.fromTo(
+      aboutEducation,
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: aboutEducation,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  }
+
+  // Animate education items with stagger
+  if (educationItems.length > 0) {
+    gsap.fromTo(
+      educationItems,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: educationItems[0],
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    // Add hover animations for education items using GSAP
+    educationItems.forEach((item) => {
+      const imageWrapper = item.querySelector('.education-image-wrapper');
+      const dot = item.querySelector('.timeline-dot');
+      const degree = item.querySelector('.education-degree');
+
+      if (imageWrapper) {
+        // Set initial state
+        gsap.set(imageWrapper, { 
+          maxHeight: 0, 
+          opacity: 0, 
+          marginTop: 0,
+          overflow: 'hidden'
+        });
+
+        item.addEventListener('mouseenter', () => {
+          gsap.to(imageWrapper, {
+            maxHeight: 300,
+            opacity: 1,
+            marginTop: 16,
+            duration: 0.5,
+            ease: 'power2.out',
+          });
+
+          if (dot) {
+            gsap.to(dot, {
+              scale: 1.3,
+              boxShadow: '0 0 20px rgba(116, 10, 3, 0.6)',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+          }
+
+          if (degree) {
+            gsap.to(degree, {
+              color: '#740A03',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+          }
+        });
+
+        item.addEventListener('mouseleave', () => {
+          gsap.to(imageWrapper, {
+            maxHeight: 0,
+            opacity: 0,
+            marginTop: 0,
+            duration: 0.4,
+            ease: 'power2.in',
+          });
+
+          if (dot) {
+            gsap.to(dot, {
+              scale: 1,
+              boxShadow: 'none',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+          }
+
+          if (degree) {
+            gsap.to(degree, {
+              color: '#f0e6e6',
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+          }
+        });
+      }
+    });
+  }
 }
 
 export function initScrollProgress(): void {

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -10,18 +11,7 @@ import Footer from '../components/Footer.astro';
   <main>
     <Hero name="Justyn Rubante" tagline="Web Developer" />
     
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title" data-animate="fade">About Me</h2>
-        <div class="about-content" data-animate="fade">
-          <p>
-            I'm a passionate web developer who loves creating beautiful and functional 
-            digital experiences. With expertise in modern web technologies, I bring 
-            ideas to life through clean code and thoughtful design.
-          </p>
-        </div>
-      </div>
-    </section>
+    <About />
 
     <section id="projects" class="section section-alt">
       <div class="container">
@@ -119,15 +109,6 @@ import Footer from '../components/Footer.astro';
 
   .section-alt {
     background: transparent;
-  }
-
-  .about-content {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: $font-size-lg;
-    color: var(--text-light);
-    line-height: 1.8;
   }
 
   .projects-grid {
