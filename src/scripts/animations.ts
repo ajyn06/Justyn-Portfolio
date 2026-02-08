@@ -126,25 +126,88 @@ function initNavbarAnimation(): void {
 
 export function initHeroAnimation(): void {
   const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const typingText = document.querySelector('.typing-text') as HTMLElement;
+  const typingCursor = document.querySelector('.typing-cursor') as HTMLElement;
+  const nameToType = 'JUSTYN RUBANTE.';
+
+  if (typingText) {
+    let charIndex = 0;
+    const typeCharacter = () => {
+      if (charIndex < nameToType.length) {
+        typingText.textContent = nameToType.substring(0, charIndex + 1);
+        charIndex++;
+        setTimeout(typeCharacter, 80);
+      } else {
+        setTimeout(() => {
+          if (typingCursor) {
+            gsap.to(typingCursor, { opacity: 0, duration: 0.3 });
+          }
+        }, 1500);
+      }
+    };
+
+    setTimeout(typeCharacter, 800);
+  }
 
   timeline
     .fromTo(
+      '[data-hero="image"]',
+      { opacity: 0, scale: 0.8, x: 100 },
+      { opacity: 1, scale: 1, x: 0, duration: 1.2, ease: 'back.out(1.2)' }
+    )
+    .fromTo(
+      '[data-hero="greeting"]',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6 },
+      '-=0.8'
+    )
+    .fromTo(
       '[data-hero="title"]',
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1 }
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      '-=0.4'
     )
     .fromTo(
       '[data-hero="subtitle"]',
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.8 },
-      '-=0.5'
+      '-=0.2'
     )
     .fromTo(
-      '[data-hero="cta"]',
+      '[data-hero="buttons"]',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6 },
+      '-=0.4'
+    )
+    .fromTo(
+      '[data-hero="cv"]',
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6 },
       '-=0.3'
     );
+
+  const imageWrapper = document.querySelector('[data-hero="image"]');
+  if (imageWrapper) {
+    gsap.to(imageWrapper, {
+      y: -15,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+    });
+  }
+
+  const imageGlow = document.querySelector('.hero-image-glow');
+  if (imageGlow) {
+    gsap.to(imageGlow, {
+      scale: 1.1,
+      opacity: 0.6,
+      duration: 2.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+    });
+  }
 }
 
 export function initBackgroundAnimation(): void {
