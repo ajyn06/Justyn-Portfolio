@@ -1,0 +1,116 @@
+@use 'variables' as *;
+
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: $breakpoint-2xl) {
+    @content;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin heading-style {
+  font-family: $font-heading;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@mixin body-text {
+  font-family: $font-primary;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $breakpoint-xl;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+
+  @include md {
+    padding: 0 $spacing-6;
+  }
+
+  @include lg {
+    padding: 0 $spacing-8;
+  }
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  font-weight: 500;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-base;
+  border: none;
+  text-decoration: none;
+
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+@mixin gradient-text {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@mixin section-padding {
+  padding: $spacing-16 0;
+
+  @include md {
+    padding: $spacing-20 0;
+  }
+}

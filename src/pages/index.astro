@@ -1,0 +1,247 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Justyn | Portfolio">
+  <Header />
+  <main>
+    <Hero name="Justyn" tagline="Web Developer & Designer" />
+    
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade">About Me</h2>
+        <div class="about-content" data-animate="fade">
+          <p>
+            I'm a passionate web developer who loves creating beautiful and functional 
+            digital experiences. With expertise in modern web technologies, I bring 
+            ideas to life through clean code and thoughtful design.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade">My Projects</h2>
+        <div class="projects-grid" data-animate="stagger">
+          <article class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+              <h3>Project 1</h3>
+              <p>A brief description of your amazing project.</p>
+              <div class="project-tags">
+                <span class="tag">Astro</span>
+                <span class="tag">SCSS</span>
+              </div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+              <h3>Project 2</h3>
+              <p>A brief description of your amazing project.</p>
+              <div class="project-tags">
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+              </div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-image"></div>
+            <div class="project-info">
+              <h3>Project 3</h3>
+              <p>A brief description of your amazing project.</p>
+              <div class="project-tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade">Skills</h2>
+        <div class="skills-grid" data-animate="stagger">
+          <div class="skill-item">HTML/CSS</div>
+          <div class="skill-item">JavaScript</div>
+          <div class="skill-item">TypeScript</div>
+          <div class="skill-item">React</div>
+          <div class="skill-item">Astro</div>
+          <div class="skill-item">Node.js</div>
+          <div class="skill-item">SCSS</div>
+          <div class="skill-item">GSAP</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade">Get In Touch</h2>
+        <div class="contact-content" data-animate="fade">
+          <p>
+            Have a project in mind or just want to say hello? 
+            Feel free to reach out!
+          </p>
+          <a href="mailto:hello@example.com" class="contact-btn">
+            Say Hello
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  @use '../styles/mixins' as *;
+
+  .section-title {
+    text-align: center;
+    margin-bottom: $spacing-12;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      margin: $spacing-4 auto 0;
+      border-radius: $radius-full;
+    }
+  }
+
+  .section-alt {
+    background: transparent;
+  }
+
+  .about-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: $font-size-lg;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: $spacing-8;
+    
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: $radius-xl;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    transition: transform $transition-base, border-color $transition-base, background 0.6s ease;
+    
+    &:hover {
+      transform: translateY(-8px);
+      border-color: rgba($primary-color, 0.4);
+    }
+  }
+
+  .project-image {
+    height: 200px;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+  }
+
+  .project-info {
+    padding: $spacing-6;
+    
+    h3 {
+      margin-bottom: $spacing-2;
+    }
+    
+    p {
+      color: var(--text-light);
+      margin-bottom: $spacing-4;
+    }
+  }
+
+  .project-tags {
+    display: flex;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: rgba($primary-color, 0.15);
+    color: $secondary-color;
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: 500;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-4;
+    max-width: 600px;
+    margin: 0 auto;
+    
+    @include md {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .skill-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: $spacing-4 $spacing-6;
+    border-radius: $radius-lg;
+    text-align: center;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    transition: all $transition-base, background 0.6s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+      border-color: rgba($primary-color, 0.4);
+      color: var(--primary-color);
+    }
+  }
+
+  .contact-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    
+    p {
+      font-size: $font-size-lg;
+      color: var(--text-light);
+      margin-bottom: $spacing-8;
+    }
+  }
+
+  .contact-btn {
+    @include button-base;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: white;
+    padding: $spacing-4 $spacing-10;
+    font-size: $font-size-lg;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+      color: white;
+    }
+  }
+</style>

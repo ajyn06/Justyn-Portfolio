@@ -1,0 +1,97 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { href: 'https://github.com', label: 'GitHub', icon: 'github' },
+  { href: 'https://linkedin.com', label: 'LinkedIn', icon: 'linkedin' },
+  { href: 'https://twitter.com', label: 'Twitter', icon: 'twitter' },
+];
+---
+
+<footer class="footer">
+  <div class="container footer-content">
+    <div class="footer-brand">
+      <span class="footer-logo">Justyn</span>
+      <p class="footer-tagline">Creating digital experiences</p>
+    </div>
+    
+    <div class="footer-social">
+      {socialLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class="social-link" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label={link.label}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+    
+    <div class="footer-copyright">
+      <p>&copy; {currentYear} Justyn. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  @use '../styles/mixins' as *;
+
+  .footer {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: $spacing-12 0 $spacing-6;
+    border-top: 1px solid var(--card-border);
+    transition: background 0.6s ease, color 0.6s ease;
+  }
+
+  .footer-content {
+    @include flex-column;
+    align-items: center;
+    text-align: center;
+    gap: $spacing-6;
+  }
+
+  .footer-brand {
+    @include flex-column;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  .footer-logo {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    @include gradient-text;
+  }
+
+  .footer-tagline {
+    color: var(--text-light);
+    font-size: $font-size-sm;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: $spacing-6;
+  }
+
+  .social-link {
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  .footer-copyright {
+    color: var(--text-light);
+    font-size: $font-size-sm;
+    border-top: 1px solid var(--card-border);
+    padding-top: $spacing-6;
+    width: 100%;
+  }
+</style>
