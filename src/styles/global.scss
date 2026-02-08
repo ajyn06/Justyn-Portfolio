@@ -179,3 +179,61 @@ button {
   background-color: $gradient-red;
   color: $text-color;
 }
+
+// Hide default scrollbar
+html {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE and Edge
+  
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari, Opera
+  }
+}
+
+body {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Custom scroll progress indicator
+.scroll-progress {
+  position: fixed;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  z-index: 9999;
+  overflow: hidden;
+
+  @media (max-width: $breakpoint-sm) {
+    right: 15px;
+    height: 80px;
+    width: 4px;
+  }
+
+  &__bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, $primary-color 0%, $secondary-color 50%, $accent-color 100%);
+    border-radius: 10px;
+    transition: height 0.1s ease-out;
+    box-shadow: 0 0 10px rgba($primary-color, 0.5);
+  }
+}
+
+[data-theme='light'] {
+  .scroll-progress {
+    background: rgba(0, 0, 0, 0.1);
+
+    &__bar {
+      box-shadow: 0 0 10px rgba($primary-color, 0.3);
+    }
+  }
+}

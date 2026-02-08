@@ -36,6 +36,11 @@ const { title, description = "Justyn's Portfolio - Web Developer & Designer" } =
   </head>
   <body>
 
+    <!-- Custom Scroll Progress Indicator -->
+    <div class="scroll-progress">
+      <div class="scroll-progress__bar"></div>
+    </div>
+
     <div class="bg-gradient">
       <div class="bg-gradient__circle bg-gradient__circle--1"></div>
       <div class="bg-gradient__circle bg-gradient__circle--2"></div>
@@ -45,13 +50,14 @@ const { title, description = "Justyn's Portfolio - Web Developer & Designer" } =
     <slot />
     
     <script>
-      import { initAnimations, initHeroAnimation, initBackgroundAnimation, initThemeToggle } from '../scripts/animations';
+      import { initAnimations, initHeroAnimation, initBackgroundAnimation, initThemeToggle, initScrollProgress } from '../scripts/animations';
       
       document.addEventListener('DOMContentLoaded', () => {
         initAnimations();
         initHeroAnimation();
         initBackgroundAnimation();
         initThemeToggle();
+        initScrollProgress();
       });
     </script>
   </body>

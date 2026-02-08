@@ -309,3 +309,36 @@ export function initThemeToggle(): void {
     tl.set(toggleBtn, { rotation: 0 });
   });
 }
+
+export function initScrollProgress(): void {
+  const scrollBar = document.querySelector('.scroll-progress__bar') as HTMLElement;
+  
+  if (!scrollBar) return;
+
+  // Update scroll progress on scroll
+  const updateScrollProgress = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    
+    gsap.to(scrollBar, {
+      height: `${scrollPercent}%`,
+      duration: 0.1,
+      ease: 'power1.out'
+    });
+  };
+
+  // Initial call
+  updateScrollProgress();
+
+  // Use ScrollTrigger for smooth updates
+  ScrollTrigger.create({
+    trigger: document.body,
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate: updateScrollProgress
+  });
+
+  // Also listen to scroll event for responsiveness
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+}
