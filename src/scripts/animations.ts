@@ -3,6 +3,97 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+export function initIntroAnimation(onComplete: () => void): void {
+  const intro = document.getElementById('intro');
+  if (!intro) {
+    onComplete();
+    return;
+  }
+
+  const nameChars = intro.querySelectorAll('.intro__name-char');
+  const role = intro.querySelector('.intro__role');
+  const line = intro.querySelector('.intro__line');
+  const overlayLeft = intro.querySelector('.intro__overlay--left');
+  const overlayRight = intro.querySelector('.intro__overlay--right');
+  const background = intro.querySelector('.intro__background');
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      intro.remove();
+      onComplete();
+    }
+  });
+
+  gsap.set(nameChars, { opacity: 0, y: '100%', rotateX: -90 });
+  gsap.set(role, { opacity: 0, y: 30 });
+  gsap.set(line, { width: 0 });
+  gsap.set([overlayLeft, overlayRight], { scaleX: 0 });
+
+  tl.to(nameChars, {
+    opacity: 1,
+    y: '0%',
+    rotateX: 0,
+    duration: 0.8,
+    stagger: {
+      each: 0.05,
+      from: 'start'
+    },
+    ease: 'back.out(1.7)'
+  });
+
+  tl.to(role, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    ease: 'power3.out'
+  }, '-=0.3');
+
+  tl.to(line, {
+    width: '150px',
+    duration: 0.8,
+    ease: 'power2.out'
+  }, '-=0.4');
+
+  tl.to({}, { duration: 0.6 });
+
+  tl.to(nameChars, {
+    y: '-50%',
+    opacity: 0,
+    duration: 0.4,
+    stagger: {
+      each: 0.02,
+      from: 'center'
+    },
+    ease: 'power2.in'
+  });
+
+  tl.to([role, line], {
+    opacity: 0,
+    y: -20,
+    duration: 0.3,
+    ease: 'power2.in'
+  }, '-=0.3');
+
+  tl.to([overlayLeft, overlayRight], {
+    scaleX: 1,
+    duration: 0.5,
+    ease: 'power3.inOut'
+  }, '-=0.2');
+
+  tl.to(background, {
+    opacity: 0,
+    duration: 0.3
+  });
+
+  tl.to(intro, {
+    y: '-100%',
+    duration: 0.6,
+    ease: 'power3.inOut'
+  }, '-=0.2');
+}
+
 export function initAnimations(): void {
   initFadeInAnimations();
   initSlideAnimations();
@@ -130,6 +221,13 @@ export function initHeroAnimation(): void {
   const typingCursor = document.querySelector('.typing-cursor') as HTMLElement;
   const nameToType = 'JUSTYN RUBANTE.';
 
+  gsap.set('[data-hero="image"]', { opacity: 0, scale: 0.8, x: 100 });
+  gsap.set('[data-hero="greeting"]', { opacity: 0, y: 20 });
+  gsap.set('[data-hero="title"]', { opacity: 0 });
+  gsap.set('[data-hero="subtitle"]', { opacity: 0, y: 30 });
+  gsap.set('[data-hero="buttons"]', { opacity: 0, y: 20 });
+  gsap.set('[data-hero="cv"]', { opacity: 0, y: 20 });
+
   if (typingText) {
     let charIndex = 0;
     const typeCharacter = () => {
@@ -146,43 +244,37 @@ export function initHeroAnimation(): void {
       }
     };
 
-    setTimeout(typeCharacter, 800);
+    setTimeout(typeCharacter, 300);
   }
 
   timeline
-    .fromTo(
+    .to(
       '[data-hero="image"]',
-      { opacity: 0, scale: 0.8, x: 100 },
-      { opacity: 1, scale: 1, x: 0, duration: 1.2, ease: 'back.out(1.2)' }
+      { opacity: 1, scale: 1, x: 0, duration: 1, ease: 'back.out(1.2)' }
     )
-    .fromTo(
+    .to(
       '[data-hero="greeting"]',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6 },
-      '-=0.8'
+      { opacity: 1, y: 0, duration: 0.5 },
+      '-=0.7'
     )
-    .fromTo(
+    .to(
       '[data-hero="title"]',
-      { opacity: 0 },
       { opacity: 1, duration: 0.4 },
       '-=0.4'
     )
-    .fromTo(
+    .to(
       '[data-hero="subtitle"]',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8 },
+      { opacity: 1, y: 0, duration: 0.6 },
       '-=0.2'
     )
-    .fromTo(
+    .to(
       '[data-hero="buttons"]',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6 },
-      '-=0.4'
+      { opacity: 1, y: 0, duration: 0.5 },
+      '-=0.3'
     )
-    .fromTo(
+    .to(
       '[data-hero="cv"]',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6 },
+      { opacity: 1, y: 0, duration: 0.5 },
       '-=0.3'
     );
 
@@ -315,7 +407,6 @@ export function initScrollProgress(): void {
   
   if (!scrollBar) return;
 
-  // Update scroll progress on scroll
   const updateScrollProgress = () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -328,10 +419,8 @@ export function initScrollProgress(): void {
     });
   };
 
-  // Initial call
   updateScrollProgress();
 
-  // Use ScrollTrigger for smooth updates
   ScrollTrigger.create({
     trigger: document.body,
     start: 'top top',
@@ -339,6 +428,5 @@ export function initScrollProgress(): void {
     onUpdate: updateScrollProgress
   });
 
-  // Also listen to scroll event for responsiveness
   window.addEventListener('scroll', updateScrollProgress, { passive: true });
 }

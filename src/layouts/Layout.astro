@@ -1,4 +1,6 @@
 ---
+import Intro from '../components/Intro.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -31,12 +33,14 @@ const { title, description = "Justyn's Portfolio - Web Developer & Designer" } =
         if (saved === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
         }
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
       })();
     </script>
   </head>
   <body>
+    <Intro />
 
-    <!-- Custom Scroll Progress Indicator -->
     <div class="scroll-progress">
       <div class="scroll-progress__bar"></div>
     </div>
@@ -50,14 +54,16 @@ const { title, description = "Justyn's Portfolio - Web Developer & Designer" } =
     <slot />
     
     <script>
-      import { initAnimations, initHeroAnimation, initBackgroundAnimation, initThemeToggle, initScrollProgress } from '../scripts/animations';
+      import { initAnimations, initHeroAnimation, initBackgroundAnimation, initThemeToggle, initScrollProgress, initIntroAnimation } from '../scripts/animations';
       
       document.addEventListener('DOMContentLoaded', () => {
-        initAnimations();
-        initHeroAnimation();
-        initBackgroundAnimation();
-        initThemeToggle();
-        initScrollProgress();
+        initIntroAnimation(() => {
+          initAnimations();
+          initHeroAnimation();
+          initBackgroundAnimation();
+          initThemeToggle();
+          initScrollProgress();
+        });
       });
     </script>
   </body>
