@@ -1,0 +1,500 @@
+
+<div class="cursor-container" data-cursor-container>
+  <div class="cursor-blob" data-cursor-blob>
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="cursorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#9b1a10" />
+          <stop offset="50%" style="stop-color:#ff4136" />
+          <stop offset="100%" style="stop-color:#9b1a10" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path data-cursor-path class="cursor-path" fill="url(#cursorGradient)" filter="url(#glow)" />
+    </svg>
+  </div>
+
+  <div class="cursor-cross" data-cursor-cross>
+    <span class="cursor-cross__h"></span>
+    <span class="cursor-cross__v"></span>
+  </div>
+
+  <div class="cursor-particles" data-cursor-particles></div>
+  <div class="cursor-ring" data-cursor-ring></div>
+</div>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+
+
+  :global(*) {
+    @media (min-width: 1024px) {
+      cursor: none !important;
+    }
+  }
+
+  :global(html),
+  :global(body) {
+    @media (min-width: 1024px) {
+      cursor: none !important;
+    }
+  }
+
+  .cursor-container {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    overflow: hidden;
+
+    @media (max-width: 1023px) {
+      display: none !important;
+    }
+  }
+
+  .cursor-blob {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    z-index: 100002;
+    opacity: 0;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+  }
+
+  .cursor-path {
+    transform-origin: center;
+  }
+
+  .cursor-cross {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    z-index: 100003;
+    opacity: 0;
+
+    &__h,
+    &__v {
+      position: absolute;
+      background: white;
+      border-radius: 2px;
+    }
+
+    &__h {
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    &__v {
+      width: 2px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100001;
+    opacity: 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .cursor-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    pointer-events: none;
+  }
+
+  .cursor-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(135deg, #9b1a10, #ff4136);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  function initMorphingCursor() {
+    const container = document.querySelector('[data-cursor-container]') as HTMLElement;
+    const blob = document.querySelector('[data-cursor-blob]') as HTMLElement;
+    const cross = document.querySelector('[data-cursor-cross]') as HTMLElement;
+    const ring = document.querySelector('[data-cursor-ring]') as HTMLElement;
+    const particlesContainer = document.querySelector('[data-cursor-particles]') as HTMLElement;
+    const cursorPath = document.querySelector('[data-cursor-path]') as SVGPathElement;
+
+    if (!container || !blob || window.innerWidth < 1024) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let blobX = 0;
+    let blobY = 0;
+    let crossX = 0;
+    let crossY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let velocityX = 0;
+    let velocityY = 0;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let isHovering = false;
+    let morphPhase = 0;
+    let particles: HTMLElement[] = [];
+    let particleIndex = 0;
+
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'cursor-particle';
+      particlesContainer.appendChild(particle);
+      particles.push(particle);
+    }
+
+    gsap.to([blob, cross, ring], {
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out',
+      delay: 0.3,
+      stagger: 0.1,
+    });
+
+    function generateBlobPath(phase: number, stretch: number = 1): string {
+      const points = 8;
+      const angleStep = (Math.PI * 2) / points;
+      const baseRadius = 45;
+      let path = '';
+
+      for (let i = 0; i <= points; i++) {
+        const angle = i * angleStep + phase;
+        const wobble = Math.sin(phase * 3 + i * 2) * 5;
+        const stretchX = 1 + Math.abs(velocityX) * stretch * 0.02;
+        const stretchY = 1 + Math.abs(velocityY) * stretch * 0.02;
+        
+        const r = baseRadius + wobble;
+        const x = 50 + Math.cos(angle) * r * stretchX;
+        const y = 50 + Math.sin(angle) * r * stretchY;
+
+        if (i === 0) {
+          path = `M ${x} ${y}`;
+        } else {
+          const prevAngle = (i - 1) * angleStep + phase;
+          const prevWobble = Math.sin(phase * 3 + (i - 1) * 2) * 5;
+          const prevR = baseRadius + prevWobble;
+          const prevX = 50 + Math.cos(prevAngle) * prevR * stretchX;
+          const prevY = 50 + Math.sin(prevAngle) * prevR * stretchY;
+          
+          const cpX1 = prevX + Math.cos(prevAngle + Math.PI / 2) * 15;
+          const cpY1 = prevY + Math.sin(prevAngle + Math.PI / 2) * 15;
+          const cpX2 = x - Math.cos(angle + Math.PI / 2) * 15;
+          const cpY2 = y - Math.sin(angle + Math.PI / 2) * 15;
+          
+          path += ` C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${x} ${y}`;
+        }
+      }
+      path += ' Z';
+      return path;
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      prevMouseX = mouseX;
+      prevMouseY = mouseY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      velocityX = mouseX - prevMouseX;
+      velocityY = mouseY - prevMouseY;
+
+      const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+      if (speed > 3) {
+        spawnParticle();
+      }
+    });
+
+    function spawnParticle() {
+      const particle = particles[particleIndex];
+      particleIndex = (particleIndex + 1) % particles.length;
+
+      const offsetX = (Math.random() - 0.5) * 20;
+      const offsetY = (Math.random() - 0.5) * 20;
+      const size = 3 + Math.random() * 5;
+
+      gsap.set(particle, {
+        x: crossX + offsetX,
+        y: crossY + offsetY,
+        width: size,
+        height: size,
+        opacity: 0.8,
+        scale: 1,
+      });
+
+      gsap.to(particle, {
+        opacity: 0,
+        scale: 0,
+        x: crossX + offsetX + (Math.random() - 0.5) * 50,
+        y: crossY + offsetY + (Math.random() - 0.5) * 50,
+        duration: 0.6 + Math.random() * 0.4,
+        ease: 'power2.out',
+      });
+    }
+
+    function animate() {
+      crossX += (mouseX - crossX) * 0.25;
+      crossY += (mouseY - crossY) * 0.25;
+
+      blobX += (mouseX - blobX) * 0.15;
+      blobY += (mouseY - blobY) * 0.15;
+
+      ringX += (mouseX - ringX) * 0.08;
+      ringY += (mouseY - ringY) * 0.08;
+
+      morphPhase += 0.03;
+
+      const rotation = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
+      const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+      if (cursorPath) {
+        cursorPath.setAttribute('d', generateBlobPath(morphPhase, isHovering ? 0 : 1));
+      }
+
+      gsap.set(cross, { 
+        x: crossX, 
+        y: crossY,
+        rotation: isHovering ? rotation : 0,
+        scale: isHovering ? 1.5 : 1,
+      });
+
+      gsap.set(blob, { 
+        x: blobX, 
+        y: blobY,
+        rotation: rotation * 0.3,
+        scale: isHovering ? 0.5 : 1 + speed * 0.01,
+      });
+
+      gsap.set(ring, { 
+        x: ringX, 
+        y: ringY,
+        scale: isHovering ? 1.8 : 1,
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    document.addEventListener('mousedown', () => {
+      gsap.to(cross, {
+        scale: 0.5,
+        duration: 0.15,
+        ease: 'power2.out',
+      });
+
+      gsap.to(blob, {
+        scale: 1.5,
+        duration: 0.15,
+        ease: 'power2.out',
+      });
+
+      gsap.to(ring, {
+        scale: 0.8,
+        borderWidth: 3,
+        duration: 0.15,
+        ease: 'power2.out',
+      });
+
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => spawnParticle(), i * 20);
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      gsap.to(cross, {
+        scale: isHovering ? 1.5 : 1,
+        duration: 0.3,
+        ease: 'elastic.out(1, 0.5)',
+      });
+
+      gsap.to(blob, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'elastic.out(1, 0.5)',
+      });
+
+      gsap.to(ring, {
+        scale: isHovering ? 1.8 : 1,
+        borderWidth: 1,
+        duration: 0.3,
+        ease: 'elastic.out(1, 0.5)',
+      });
+    });
+
+    const hoverTargets = document.querySelectorAll('a, button, [data-cursor-hover]');
+    
+    hoverTargets.forEach((target) => {
+      target.addEventListener('mouseenter', () => {
+        isHovering = true;
+
+        gsap.to(cross, {
+          scale: 1.5,
+          duration: 0.4,
+          ease: 'elastic.out(1, 0.5)',
+        });
+
+        gsap.to('.cursor-cross__h, .cursor-cross__v', {
+          background: '#9b1a10',
+          duration: 0.3,
+        });
+
+        gsap.to(blob, {
+          scale: 0.5,
+          opacity: 0.5,
+          duration: 0.3,
+        });
+
+        gsap.to(ring, {
+          scale: 1.8,
+          borderColor: 'rgba(155, 26, 16, 0.5)',
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      });
+
+      target.addEventListener('mouseleave', () => {
+        isHovering = false;
+
+        gsap.to(cross, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+
+        gsap.to('.cursor-cross__h, .cursor-cross__v', {
+          background: 'white',
+          duration: 0.3,
+        });
+
+        gsap.to(blob, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.3,
+        });
+
+        gsap.to(ring, {
+          scale: 1,
+          borderColor: 'rgba(255, 255, 255, 0.3)',
+          duration: 0.3,
+        });
+      });
+    });
+
+    const projectCards = document.querySelectorAll('[data-project-card]');
+    projectCards.forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        gsap.to(cross, {
+          scale: 2,
+          rotation: 45,
+          duration: 0.4,
+          ease: 'elastic.out(1, 0.5)',
+        });
+
+        gsap.to(ring, {
+          scale: 2.5,
+          borderWidth: 2,
+          borderColor: '#9b1a10',
+          duration: 0.4,
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(cross, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.3,
+        });
+
+        gsap.to(ring, {
+          scale: 1,
+          borderWidth: 1,
+          borderColor: 'rgba(255, 255, 255, 0.3)',
+          duration: 0.3,
+        });
+      });
+    });
+
+    document.addEventListener('mouseleave', () => {
+      gsap.to([blob, cross, ring], {
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.3,
+      });
+    });
+
+    document.addEventListener('mouseenter', () => {
+      gsap.to([blob, cross, ring], {
+        opacity: 1,
+        scale: 1,
+        duration: 0.3,
+        stagger: 0.05,
+      });
+    });
+
+    const magneticElements = document.querySelectorAll('button, .contact-link, .social-link, .nav-link');
+    magneticElements.forEach((element) => {
+      element.addEventListener('mousemove', (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const rect = (element as HTMLElement).getBoundingClientRect();
+        const x = mouseEvent.clientX - rect.left - rect.width / 2;
+        const y = mouseEvent.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(element, {
+          x: x * 0.25,
+          y: y * 0.25,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      });
+
+      element.addEventListener('mouseleave', () => {
+        gsap.to(element, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.3)',
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initMorphingCursor);
+  document.addEventListener('astro:page-load', initMorphingCursor);
+</script>
