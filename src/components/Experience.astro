@@ -1,0 +1,345 @@
+---
+interface ExperienceItem {
+  year: string;
+  title: string;
+  company: string;
+  location?: string;
+  description: string;
+  tags: string[];
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    year: "Jun 2024 - Jun 2025",
+    title: "Full-Stack Developer",
+    company: "Alabang, Muntinlupa",
+    location: "Hybrid",
+    description: "Developed and maintained enterprise systems, including a company timekeeping system, while collaborating with a team in an Agile environment.",
+    tags: ["Express", "React", "Typescript", "Prisma", "PostgreSQL", "Digital Ocean", "Jest", "Docker", "Shadcn"]
+  },
+  {
+    year: "2023 - 2025",
+    title: "Freelance Developer",
+    company: "Self-Employed",
+    location: "Remote",
+    description: "design user-friendly website layouts in Figma and build responsive sites using Squarespace and Webflow. Developed and deploy full-stack web applications, managing both front-end and back-end functionality while enhancing user experience with smooth animations and interactive features.",
+    tags: ["React","React Native", "Next.js", "Supabase", "MongoDB", "GSAP", "Framer Motion", "Webflow", "Squarespace", "Figma", "Vercel", "Tailwind CSS", "SCSS"]
+  },
+  {
+    year: "2021 - 2025",
+    title: "Student Project",
+    company: "Cavite State University Bacoor City Campus",
+    description: "developed an automated system for standardized psychological tests with support for online assessments and OMR-based scoring. Worked with multiple programming languages and frameworks, applying core development principles to create functional and efficient systems.",
+    tags: ["Java","JavaScript", "TypeScript", "Python", "OpenCV", "Django", "Flutter", "Firebase", "mySQL", "Git", "GitHub", "PostgreSQL", "Unity", "C#"]
+  },
+  {
+    year: "2020",
+    title: "Getting Started",
+    company: "Self Learning",
+    description: "Started my journey into web development through online courses, tutorials, and building personal projects.",
+    tags: ["HTML", "CSS", "JavaScript", "Git", "MySQL", "React",]
+  }
+];
+---
+
+<section id="experience" class="experience-section">
+  <div class="experience-container">
+    <h2 class="experience-title">EXPERIENCE</h2>
+    
+    <div class="timeline">
+      {experiences.map((exp, index) => (
+        <div class="timeline-item" data-experience="item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-connector"></div>
+          
+          <div class="experience-card">
+            <div class="experience-header">
+              <span class="experience-year">{exp.year}</span>
+              <h3 class="experience-role">{exp.title}</h3>
+              <p class="experience-company">
+                {exp.company}{exp.location && ` · ${exp.location}`}
+              </p>
+            </div>
+            
+            <div class="experience-details">
+              <p class="experience-description">{exp.description}</p>
+              <div class="experience-tags">
+                {exp.tags.map((tag) => (
+                  <span class="experience-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  @use '../styles/mixins' as *;
+
+  .experience-section {
+    position: relative;
+    padding: $spacing-16 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .experience-container {
+    @include container;
+    max-width: 900px;
+  }
+
+  .experience-title {
+    font-family: $font-title;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: $spacing-12;
+    letter-spacing: 0.05em;
+    text-align: center;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: $primary-color;
+      margin: $spacing-4 auto 0;
+    }
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba($primary-color, 0.5) 10%,
+        rgba($primary-color, 0.5) 90%,
+        transparent
+      );
+    }
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: $spacing-8;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -33px;
+    top: 24px;
+    width: 16px;
+    height: 16px;
+    background: $background-color;
+    border: 3px solid $primary-color;
+    border-radius: 50%;
+    z-index: 2;
+    transition: all $transition-base;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: $primary-color;
+    box-shadow: 0 0 20px rgba($primary-color, 0.6);
+    transform: scale(1.2);
+  }
+
+  .experience-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: $radius-xl;
+    padding: $spacing-6;
+    transition: all $transition-base;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba($primary-color, 0.4);
+      transform: translateX(8px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba($primary-color, 0.1);
+
+      [data-theme='light'] & {
+        background: rgba(116, 10, 3, 0.08);
+      }
+    }
+
+    [data-theme='light'] & {
+      border-color: rgba(116, 10, 3, 0.12);
+
+      &:hover {
+        background: rgba(116, 10, 3, 0.12);
+      }
+    }
+  }
+
+  .experience-header {
+    margin-bottom: 0;
+    transition: margin-bottom $transition-base;
+  }
+
+  .experience-year {
+    display: inline-block;
+    font-size: $font-size-sm;
+    color: $secondary-color;
+    font-weight: 500;
+    margin-bottom: $spacing-2;
+  }
+
+  .experience-role {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: $spacing-1;
+    transition: color $transition-base;
+  }
+
+  .timeline-item:hover .experience-role {
+    color: $secondary-color;
+  }
+
+  .experience-company {
+    font-size: $font-size-sm;
+    color: var(--text-light);
+  }
+
+  .experience-details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all $transition-base;
+  }
+
+  .experience-card:hover .experience-header {
+    margin-bottom: $spacing-4;
+  }
+
+  .experience-card:hover .experience-details {
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  .experience-description {
+    font-size: $font-size-base;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: $spacing-4;
+    padding-top: $spacing-4;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .experience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+
+  .experience-tag {
+    background: rgba($primary-color, 0.8);
+    color: white;
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: 500;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $primary-color;
+      transform: translateY(-2px);
+    }
+  }
+
+  @include md {
+    .timeline {
+      padding-left: 60px;
+
+      &::before {
+        left: 25px;
+      }
+    }
+
+    .timeline-dot {
+      left: -43px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .experience-card {
+      padding: $spacing-8;
+    }
+
+    .experience-role {
+      font-size: $font-size-2xl;
+    }
+  }
+
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-30px);
+
+    &.animate-in {
+      animation: slideInRight 0.6s ease forwards;
+    }
+  }
+
+  @for $i from 1 through 10 {
+    .timeline-item:nth-child(#{$i}).animate-in {
+      animation-delay: #{$i * 0.15}s;
+    }
+  }
+
+  @keyframes slideInRight {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<script>
+  const observeTimelineItems = () => {
+    const items = document.querySelectorAll('[data-experience="item"]');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  };
+
+  document.addEventListener('DOMContentLoaded', observeTimelineItems);
+  document.addEventListener('astro:page-load', observeTimelineItems);
+</script>
