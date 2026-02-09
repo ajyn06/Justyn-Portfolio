@@ -1,0 +1,703 @@
+---
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  category: 'frontend' | 'fullstack' | 'webdesign';
+  images: string[]; 
+  tags: string[];
+  link?: string;
+}
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Discover U",
+    description: "An automated checking system for standardized psychological tests, supporting both online assessments and physical test scoring via OMR (Optical Mark Recognition).",
+    date: "2024 - 205",
+    category: "fullstack",
+    images: ["/proj/discoveru1.jpg", "/proj/discoveru2.jpg", "/proj/discoveru3.jpg"],
+    tags: ["React", "TypeScript", "SCSS", "MongoDB", "Node.js", "Express", "Python", "OpenCV"],
+    link: "https://student-gqoc0f7zw-discoveru.vercel.app/?fbclid=IwY2xjawP2Q0VleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAEwAAEeAe1KJRJoWJW15M4zI2fjph57f5Jptq49-_a5ctMBN_E5V4ozQD_Q4wAm3U4_aem_67ybcsESzlTG3J--BjOhPA"
+  },
+  {
+    id: 2,
+    title: "Green Cycle",
+    description: "Freelance project built online‑first backend logic with offline support for a recycling app and tested data sync between cloud and local storage across Android/iOS.",
+    date: "2025",
+    category: "fullstack",
+    images: ["/proj/green1.png ", "/proj/green2.png", "/proj/green3.png"],
+    tags: ["React Native", "Expo", "Supabase", "TypeScript"],
+    link: "https://github.com/pangilinanervin22/GreenCycle"
+  },
+  {
+    id: 3,
+    title: "Math Time",
+    description: "A math quiz game for kids that features interactive quizzes, and colorful graphics",
+    date: "2023",
+    category: "frontend",
+    images: ["/proj/math1.png", "/proj/math2.png", "/proj/math3.png"],
+    tags: ["HTML", "CSS", "JavaScript"],
+    link: "https://ajyn06.github.io/Math-Time/"
+  },
+  {
+    id: 4,
+    title: "Birthstone & Co",
+    description: "Project featuring a birthstone finder and a shop page for accessories.",
+    date: "2024",
+    category: "frontend",
+    images: ["/proj/bstone.png", "/proj/bstone2.png", "/proj/bstone3.png"],
+    tags: ["React", "SCSS", "TypeScript"],
+    link: "https://birthstone-and-co.vercel.app"
+  },
+  {
+    id: 5,
+    title: "Stoa",
+    description: "One-page museum website showcasing exhibits and collections",
+    date: "2024",
+    category: "frontend",
+    images: ["/proj/stoa1.png", "/proj/stoa2.png", "/proj/stoa3.png"],
+    tags: ["HTML", "CSS", "JavaScript"],
+    link: "https://ajyn06.github.io/Stoa/"
+  },
+  {
+    id: 6,
+    title: "Vets Go",
+    description: "Simple vet website with QR-code booking for quick service access",
+    date: "2024",
+    category: "frontend",
+    images: ["/proj/vetsgo1.png", "/proj/vetsgo2.png", "/proj/vetsgo3.png"],
+    tags: ["React", "SCSS", "TypeScript", "Framer Motion"],
+    link: "https://vetsgo.vercel.app"
+  },
+  {
+    id: 7,
+    title: "Aozora",
+    description: "Sushi restaurant website with online reservation",
+    date: "2024",
+    category: "frontend",
+    images: ["/proj/aoz1.png", "/proj/aoz2.png", "/proj/aoz3.png"],
+    tags: ["React", "SCSS", "TypeScript", "Framer Motion"],
+    link: "https://aozora-sushi.vercel.app"
+  },
+  {
+    id: 8,
+    title: "Hue & You",
+    description: "Color analysis and style recommendation platform with quiz-based results, fashion and beauty guidance",
+    date: "2025",
+    category: "frontend",
+    images: ["/proj/hy1.png", "/proj/hy2.png", "/proj/hy3.png"],
+    tags: ["React", "SCSS", "JavaScript", "Framer Motion"],
+    link: "https://hue-and-you.vercel.app"
+  },
+    {
+    id: 9,
+    title: "Aurette Oven",
+    description: "E-commerce website for bread, cookies, and muffins with cart functionality and purchase with reciept",
+    date: "2025",
+    category: "frontend",
+    images: ["/proj/oven1.png", "/proj/oven2.png", "/proj/oven3.png"],
+    tags: ["React", "SCSS", "JavaScript", "Framer Motion"],
+    link: "https://aurette-oven.vercel.app"
+  },
+    {
+    id: 10,
+    title: "MooShake",
+    description: "One-page website promoting fresh fruit shakes",
+    date: "2025",
+    category: "frontend",
+    images: ["/proj/moo1.png", "/proj/moo2.png", "/proj/moo3.png"],
+    tags: ["React", "SCSS", "TypeScript", "Framer Motion"],
+    link: "https://mooshake.vercel.app"
+  },
+     {
+    id: 11,
+    title: "Washly User",
+    description: "Laundry service web app with user authentication, laundry pickup booking, order tracking, and account management",
+    date: "2025",
+    category: "fullstack",
+    images: ["/proj/washly1.png", "/proj/washly2.png", "/proj/washly3.png"],
+    tags: ["React", "Tailwind", "TypeScript", "Supabase", "Framer Motion"],
+    link: "https://washly-user.vercel.app"
+  },
+  
+     {
+    id: 12,
+    title: "Washly Admin",
+    description: "Admin dashboard for managing laundry pickup bookings, order tracking, tagging, and full account management.",
+    date: "2025",
+    category: "fullstack",
+    images: ["/proj/adminW1.png", "/proj/adminW2.png", "/proj/adminW3.png"],
+    tags: ["React", "Tailwind", "TypeScript", "Supabase", "Framer Motion"],
+    link: "https://washly-admin-livid.vercel.app"
+  },
+    {
+    id: 13,
+    title: "Celebrity Sari-Sari Store Admin",
+    description: "POS and inventory system for sari-sari stores with daily sales tracking.",
+    date: "2026",
+    category: "fullstack",
+    images: ["/proj/celeb1.png", "/proj/celeb2.png", "/proj/celeb3.png"],
+    tags: ["NextJs", "Tailwind", "Shadcn UI", "MongoDB", "GSAP"],
+    link: "https://celebrity-store.vercel.app"
+  },
+    {
+    id: 14,
+    title: "Aussie Custom Card",
+    description: "Designed and built a website for an Australian-based custom card business",
+    date: "2025",
+    category: "webdesign",
+    images: ["/proj/aussie1.png", "/proj/aussie2.png", "/proj/aussie3.png"],
+    tags: ["Figma", "Squarespace"],
+    link: "https://www.aussiecustomcards.com/"
+  },
+   {
+    id: 15,
+    title: "Paysera Time Keeping System",
+    description: "Internship at FiveTwenty: our team built a timekeeping platform. I mainly contributed to the backend, including role-based access control, audit logging, API design, performance tuning, and automated tests.",
+    date: "2024 - 2025",
+    category: "fullstack",
+    images: ["/proj/paysera.jpg", "/proj/paysera2.jpg", "/proj/paysera3.jpg"],
+    tags: ["React", "ShadCn", "Prisma", "Express", "PostgreSQL", "TypeScript", "Jest", "Supertest", "Digital Ocean"],
+    link: "https://github.com/Paysera-Gaming/Paysera-Backend"
+  },
+    {
+    id: 16,
+    title: "Lotus Leaf",
+    description: "Spa Website showing services and ",
+    date: "2024 - 2025",
+    category: "webdesign",
+    images: ["/proj/lot1.png", "/proj/lot2.png", "/proj/lot3.png"],
+    tags: ["Figma"]
+    },
+];
+---
+
+<section id="projects" class="projects-section section section-alt">
+  <div class="container">
+    <h2 class="section-title" data-animate="fade">MY PROJECTS</h2>
+    <div class="filter-toggle" data-animate="fade">
+      <button class="filter-btn" data-filter="frontend">Front-end</button>
+      <button class="filter-btn active" data-filter="fullstack">Fullstack</button>
+      <button class="filter-btn" data-filter="webdesign">Web Designs</button>
+    </div>
+
+    <div class="projects-grid" data-projects-grid>
+      {projects.map((project) => (
+        <article 
+          class={`project-card ${project.category !== 'fullstack' ? 'hidden' : ''}`}
+          data-category={project.category}
+          data-project-card
+        >
+          <div class="project-slideshow" data-slideshow>
+            {project.images.map((image, index) => (
+              <div 
+                class={`slide ${index === 0 ? 'active' : ''}`}
+                data-slide={index}
+              >
+                <img src={image} alt={`${project.title} - Image ${index + 1}`} loading="lazy" />
+              </div>
+            ))}
+            <div class="slide-indicators">
+              {project.images.map((_, index) => (
+                <span class={`indicator ${index === 0 ? 'active' : ''}`} data-indicator={index}></span>
+              ))}
+            </div>
+          </div>
+
+          <div class="project-info">
+            <div class="project-header">
+              <span class="project-date">{project.date}</span>
+              {project.link && (
+                <a href={project.link} class="project-link" target="_blank" rel="noopener noreferrer" aria-label="View project">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              )}
+            </div>
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-description">{project.description}</p>
+            <div class="project-tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  @use '../styles/mixins' as *;
+
+  .projects-section {
+    padding: $spacing-20 0;
+    min-height: 100vh;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: $spacing-8;
+    font-family: $font-title;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(40px);
+    background: linear-gradient(135deg, var(--text-color) 0%, $secondary-color 50%, var(--text-color) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      margin: $spacing-4 auto 0;
+      border-radius: $radius-full;
+    }
+  }
+
+  .filter-toggle {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-12;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .filter-btn {
+    padding: $spacing-3 $spacing-6;
+    background: var(--toggle-bg);
+    border: 1px solid var(--border-color);
+    border-radius: $radius-full;
+    color: var(--text-light);
+    font-family: $font-primary;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    &:hover {
+      border-color: rgba($primary-color, 0.5);
+      color: var(--text-color);
+      background: rgba($primary-color, 0.1);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+    }
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: $spacing-6;
+    grid-template-columns: 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: $radius-xl;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: border-color 0.4s ease;
+    will-change: transform, box-shadow;
+
+    &:hover {
+      border-color: rgba($primary-color, 0.5);
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.fade-out {
+      opacity: 0;
+      transform: scale(0.9);
+      pointer-events: none;
+    }
+
+    &.fade-in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .project-slideshow {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($secondary-color, 0.2));
+
+    @include sm {
+      height: 260px;
+    }
+
+    @include md {
+      height: 220px;
+    }
+
+    @include lg {
+      height: 200px;
+    }
+
+    @include xl {
+      height: 220px;
+    }
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    &.active {
+      opacity: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .slide-indicators {
+    position: absolute;
+    bottom: $spacing-3;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $spacing-2;
+    z-index: 10;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+
+    &.active {
+      background: white;
+      transform: scale(1.2);
+    }
+  }
+
+  .project-info {
+    padding: $spacing-6;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-3;
+  }
+
+  .project-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba($primary-color, 0.15);
+    color: $secondary-color;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .project-date {
+    display: inline-block;
+    font-size: $font-size-xs;
+    color: $secondary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .project-title {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: 600;
+    margin-bottom: $spacing-3;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+
+    .project-card:hover & {
+      color: $secondary-color;
+    }
+  }
+
+  .project-description {
+    font-size: $font-size-base;
+    color: var(--text-light);
+    margin-bottom: $spacing-5;
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: $spacing-2;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: rgba($primary-color, 0.15);
+    color: $secondary-color;
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba($primary-color, 0.25);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initProjectsSection() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('[data-project-card]');
+    const projectsGrid = document.querySelector('[data-projects-grid]');
+    const visibleCards = document.querySelectorAll('[data-project-card]:not(.hidden)');
+
+    gsap.fromTo(
+      visibleCards,
+      { opacity: 0, y: 50, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: projectsGrid,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        gsap.fromTo(
+          btn,
+          { scale: 0.95 },
+          { scale: 1, duration: 0.2, ease: 'back.out(1.7)' }
+        );
+
+        projectCards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          const shouldShow = category === filter;
+
+          if (shouldShow) {
+            card.classList.remove('hidden');
+            gsap.to(card, {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          } else {
+            gsap.to(card, {
+              opacity: 0,
+              scale: 0.9,
+              y: 20,
+              duration: 0.3,
+              ease: 'power2.in',
+              onComplete: () => {
+                card.classList.add('hidden');
+              },
+            });
+          }
+        });
+      });
+    });
+
+    const slideshows = document.querySelectorAll('[data-slideshow]');
+
+    slideshows.forEach((slideshow) => {
+      const slides = slideshow.querySelectorAll('[data-slide]');
+      const indicators = slideshow.querySelectorAll('[data-indicator]');
+      let currentSlide = 0;
+      let intervalId: ReturnType<typeof setInterval> | null = null;
+
+      const showSlide = (index: number) => {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+        indicators.forEach((indicator, i) => {
+          indicator.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+      };
+
+      const nextSlide = () => {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+      };
+
+      const startSlideshow = () => {
+        if (intervalId) return;
+        intervalId = setInterval(nextSlide, 1200);
+      };
+
+      const stopSlideshow = () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+        showSlide(0);
+      };
+
+      const card = slideshow.closest('[data-project-card]');
+      if (card) {
+        card.addEventListener('mouseenter', startSlideshow);
+        card.addEventListener('mouseleave', stopSlideshow);
+      }
+    });
+
+    projectCards.forEach((card) => {
+      const cardElement = card as HTMLElement;
+      const slideshow = card.querySelector('[data-slideshow]');
+      const info = card.querySelector('.project-info');
+      const title = card.querySelector('.project-title');
+      const tags = card.querySelectorAll('.tag');
+
+      cardElement.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          y: -12,
+          scale: 1.02,
+          boxShadow: '0 25px 50px rgba(116, 10, 3, 0.25), 0 0 30px rgba(155, 26, 16, 0.15)',
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+
+        if (slideshow) {
+          gsap.to(slideshow.querySelectorAll('img'), {
+            scale: 1.1,
+            duration: 0.6,
+            ease: 'power2.out',
+          });
+        }
+
+        if (title) {
+          gsap.to(title, {
+            color: '#9b1a10',
+            duration: 0.3,
+          });
+        }
+
+        if (tags.length > 0) {
+          gsap.to(tags, {
+            scale: 1.05,
+            y: -2,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: 'back.out(1.7)',
+          });
+        }
+      });
+
+      cardElement.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          scale: 1,
+          boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+
+        if (slideshow) {
+          gsap.to(slideshow.querySelectorAll('img'), {
+            scale: 1,
+            duration: 0.4,
+            ease: 'power2.out',
+          });
+        }
+
+        if (title) {
+          gsap.to(title, {
+            color: 'var(--text-color)',
+            duration: 0.3,
+          });
+        }
+
+        if (tags.length > 0) {
+          gsap.to(tags, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.03,
+            ease: 'power2.out',
+          });
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initProjectsSection);
+  document.addEventListener('astro:page-load', initProjectsSection);
+</script>
