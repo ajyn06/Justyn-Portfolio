@@ -1,36 +1,75 @@
 ---
 const currentYear = new Date().getFullYear();
 
+const navLinks = [
+  { href: '#hero', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
+
 const socialLinks = [
-  { href: 'https://github.com', label: 'GitHub', icon: 'github' },
-  { href: 'https://linkedin.com', label: 'LinkedIn', icon: 'linkedin' },
-  { href: 'https://twitter.com', label: 'Twitter', icon: 'twitter' },
+  { 
+    href: 'https://github.com/YOUR-GITHUB', 
+    label: 'GitHub',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`
+  },
+  { 
+    href: 'https://linkedin.com/in/YOUR-LINKEDIN', 
+    label: 'LinkedIn',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`
+  },
+  { 
+    href: 'mailto:YOUR-EMAIL@gmail.com', 
+    label: 'Gmail',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`
+  },
 ];
 ---
 
-<footer class="footer">
-  <div class="container footer-content">
-    <div class="footer-brand">
-      <span class="footer-logo">Justyn</span>
-      <p class="footer-tagline">Creating digital experiences</p>
-    </div>
-    
-    <div class="footer-social">
-      {socialLinks.map((link) => (
-        <a 
-          href={link.href} 
-          class="social-link" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          aria-label={link.label}
-        >
-          {link.label}
+<footer class="footer" data-footer>
+  <div class="container">
+    <div class="footer-top" data-footer-top>
+      <div class="footer-brand">
+        <a href="#hero" class="footer-logo">
+          <img src="/img/JR-logo.png" alt="Justyn Rubante Logo" class="logo-dark" />
+          <img src="/img/JR-logo-light.png" alt="Justyn Rubante Logo" class="logo-light" />
         </a>
-      ))}
+        <p class="footer-quote">Where creativity meets code</p>
+      </div>
+
+      <div class="footer-social">
+        {socialLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="social-link" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label={link.label}
+            data-social-link
+          >
+            <Fragment set:html={link.icon} />
+          </a>
+        ))}
+      </div>
     </div>
-    
-    <div class="footer-copyright">
-      <p>&copy; {currentYear} Justyn. All rights reserved.</p>
+
+    <nav class="footer-nav" data-footer-nav>
+      {navLinks.map((link) => (
+        <a href={link.href} class="footer-nav-link">{link.label}</a>
+      ))}
+    </nav>
+    <div class="footer-divider" data-footer-divider></div>
+    <div class="footer-bottom" data-footer-bottom>
+      <p class="footer-copyright">
+        &copy; {currentYear} <span class="highlight">Justyn Rubante</span>. All rights reserved.
+      </p>
+      
+      <button class="back-to-top" data-back-to-top aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 15-6-6-6 6"/>
+        </svg>
+      </button>
     </div>
   </div>
 </footer>
@@ -40,58 +79,291 @@ const socialLinks = [
   @use '../styles/mixins' as *;
 
   .footer {
-    background: var(--card-bg);
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba($primary-color, 0.03) 100%);
     color: var(--text-color);
     padding: $spacing-12 0 $spacing-6;
     border-top: 1px solid var(--card-border);
-    transition: background 0.6s ease, color 0.6s ease;
   }
 
-  .footer-content {
-    @include flex-column;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-6;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
     gap: $spacing-6;
+    margin-bottom: $spacing-8;
+    opacity: 0;
+    transform: translateY(20px);
+
+    @include md {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   .footer-brand {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: $spacing-2;
+
+    @include md {
+      align-items: flex-start;
+    }
   }
 
   .footer-logo {
-    font-family: $font-heading;
-    font-size: $font-size-2xl;
-    font-weight: 700;
-    @include gradient-text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-dark {
+      display: block;
+    }
+
+    .logo-light {
+      display: none;
+    }
+
+    &:hover {
+      transform: scale(1.08);
+    }
   }
 
-  .footer-tagline {
-    color: var(--text-light);
+  :global([data-theme='light']) .footer-logo {
+    .logo-dark {
+      display: none;
+    }
+
+    .logo-light {
+      display: block;
+    }
+  }
+
+  .footer-quote {
     font-size: $font-size-sm;
+    color: var(--text-light);
+    font-style: italic;
   }
 
   .footer-social {
     display: flex;
-    gap: $spacing-6;
+    gap: $spacing-3;
   }
 
   .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: $radius-lg;
     color: var(--text-light);
-    font-weight: 500;
-    transition: color $transition-fast;
+    transition: all 0.3s ease;
 
     &:hover {
-      color: var(--primary-color);
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba($primary-color, 0.25);
+    }
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-4 $spacing-8;
+    margin-bottom: $spacing-8;
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  .footer-nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: $spacing-2 0;
+    position: relative;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-color, $secondary-color);
+      border-radius: $radius-full;
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: $secondary-color;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .footer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+    margin-bottom: $spacing-6;
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-4;
+    opacity: 0;
+    transform: translateY(10px);
+
+    @include md {
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
 
   .footer-copyright {
-    color: var(--text-light);
     font-size: $font-size-sm;
-    border-top: 1px solid var(--card-border);
-    padding-top: $spacing-6;
-    width: 100%;
+    color: var(--text-light);
+
+    .highlight {
+      color: var(--text-color);
+      font-weight: 600;
+    }
+  }
+
+  .back-to-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba($primary-color, 0.25);
+
+      svg {
+        animation: bounce 0.5s ease infinite;
+      }
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
   }
 </style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initFooterAnimations() {
+    const footer = document.querySelector('[data-footer]');
+    const top = document.querySelector('[data-footer-top]');
+    const nav = document.querySelector('[data-footer-nav]');
+    const divider = document.querySelector('[data-footer-divider]');
+    const bottom = document.querySelector('[data-footer-bottom]');
+    const socialLinks = document.querySelectorAll('[data-social-link]');
+    const backToTop = document.querySelector('[data-back-to-top]');
+
+    if (!footer) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: footer,
+        start: 'top 90%',
+        toggleActions: 'play none none none',
+      },
+    });
+
+    tl.to(top, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+    });
+
+    tl.to(nav, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+    }, '-=0.3');
+
+    tl.to(divider, {
+      opacity: 1,
+      scaleX: 1,
+      duration: 0.6,
+      ease: 'power2.out',
+    }, '-=0.2');
+
+    tl.to(bottom, {
+      opacity: 1,
+      y: 0,
+      duration: 0.4,
+      ease: 'power2.out',
+    }, '-=0.3');
+
+    socialLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        gsap.to(link, { scale: 1.1, duration: 0.2, ease: 'back.out(1.7)' });
+      });
+      link.addEventListener('mouseleave', () => {
+        gsap.to(link, { scale: 1, duration: 0.2, ease: 'power2.out' });
+      });
+    });
+    
+    if (backToTop) {
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initFooterAnimations);
+  document.addEventListener('astro:page-load', initFooterAnimations);
+</script>

@@ -6,6 +6,7 @@ import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import TechStack from '../components/TechStack.astro';
+import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -22,20 +23,7 @@ import Footer from '../components/Footer.astro';
 
     <TechStack />
 
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title" data-animate="fade">Get In Touch</h2>
-        <div class="contact-content" data-animate="fade">
-          <p>
-            Have a project in mind or just want to say hello? 
-            Feel free to reach out!
-          </p>
-          <a href="mailto:hello@example.com" class="contact-btn">
-            Say Hello
-          </a>
-        </div>
-      </div>
-    </section>
+    <Contact />
   </main>
   <Footer />
 </Layout>
@@ -72,31 +60,5 @@ import Footer from '../components/Footer.astro';
 
   .section-alt {
     background: transparent;
-  }
-
-  .contact-content {
-    text-align: center;
-    max-width: 500px;
-    margin: 0 auto;
-    
-    p {
-      font-size: $font-size-lg;
-      color: var(--text-light);
-      margin-bottom: $spacing-8;
-    }
-  }
-
-  .contact-btn {
-    @include button-base;
-    background: linear-gradient(135deg, $primary-color, $secondary-color);
-    color: white;
-    padding: $spacing-4 $spacing-10;
-    font-size: $font-size-lg;
-    
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: $shadow-lg;
-      color: white;
-    }
   }
 </style>
