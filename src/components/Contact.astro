@@ -80,10 +80,17 @@
   .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $spacing-12;
+    gap: $spacing-8;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 $spacing-4;
+
+    @include md {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacing-12;
+      padding: 0;
+    }
 
     @include lg {
       grid-template-columns: 1.2fr 1fr;

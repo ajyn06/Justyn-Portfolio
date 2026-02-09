@@ -198,9 +198,19 @@ const allCategories = [
   }
 
   .tech-showcase {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-4;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-3;
+
+    @include sm {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include md {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-4;
+    }
   }
 
   .tech-card {
