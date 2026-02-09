@@ -100,6 +100,7 @@ export function initAnimations(): void {
   initStaggerAnimations();
   initNavbarAnimation();
   initAboutAnimation();
+  initSectionTitleAnimations();
 }
 
 function initFadeInAnimations(): void {
@@ -299,6 +300,17 @@ export function initHeroAnimation(): void {
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut',
+    });
+  }
+
+  const heroName = document.querySelector('.hero-name') as HTMLElement;
+  if (heroName) {
+    gsap.to(heroName, {
+      backgroundPosition: '200% center',
+      duration: 3,
+      repeat: -1,
+      ease: 'none',
+      delay: 1.5 
     });
   }
 }
@@ -548,6 +560,104 @@ export function initAboutAnimation(): void {
           }
         });
       }
+    });
+  }
+}
+
+function initSectionTitleAnimations(): void {
+  const experienceTitle = document.querySelector('.experience-title') as HTMLElement;
+  if (experienceTitle) {
+    gsap.fromTo(experienceTitle, 
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: experienceTitle,
+          start: 'top 85%'
+        }
+      }
+    );
+
+    gsap.to(experienceTitle, {
+      backgroundPosition: '200% center',
+      duration: 3,
+      repeat: -1,
+      ease: 'none'
+    });
+  }
+
+  const aboutTitle = document.querySelector('.about-title') as HTMLElement;
+  if (aboutTitle) {
+    gsap.fromTo(aboutTitle,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: aboutTitle,
+          start: 'top 85%'
+        }
+      }
+    );
+
+    gsap.to(aboutTitle, {
+      backgroundPosition: '200% center',
+      duration: 3,
+      repeat: -1,
+      ease: 'none'
+    });
+  }
+
+  const projectsTitle = document.querySelector('#projects .section-title') as HTMLElement;
+  if (projectsTitle) {
+    gsap.fromTo(projectsTitle,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: projectsTitle,
+          start: 'top 85%'
+        }
+      }
+    );
+
+    gsap.to(projectsTitle, {
+      backgroundPosition: '200% center',
+      duration: 3,
+      repeat: -1,
+      ease: 'none'
+    });
+  }
+
+  const contactTitle = document.querySelector('#contact .section-title') as HTMLElement;
+  if (contactTitle) {
+    gsap.fromTo(contactTitle,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: contactTitle,
+          start: 'top 85%'
+        }
+      }
+    );
+
+    gsap.to(contactTitle, {
+      backgroundPosition: '200% center',
+      duration: 3,
+      repeat: -1,
+      ease: 'none'
     });
   }
 }

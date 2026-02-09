@@ -1,0 +1,619 @@
+---
+interface TechItem {
+  name: string;
+  icon: string;
+}
+
+const languagesFrameworks: TechItem[] = [
+  { name: "JavaScript", icon: "/img/tech/js.png" },
+  { name: "TypeScript", icon: "/img/tech/ts.png" },
+  { name: "Python", icon: "/img/tech/python.png" },
+  { name: "Java", icon: "/img/tech/java.png" },
+  { name: "HTML5", icon: "/img/tech/html.png" },
+  { name: "React", icon: "/img/tech/react.png" },
+  { name: "Next.js", icon: "/img/tech/nextjs.png" },
+  { name: "React Native", icon: "/img/tech/reactnative.png" },
+  { name: "Express", icon: "/img/tech/expressjs.png" },
+  { name: "Astro", icon: "/img/tech/astro.png" },
+];
+
+const databases: TechItem[] = [
+  { name: "PostgreSQL", icon: "/img/tech/postgresql.png" },
+  { name: "MongoDB", icon: "/img/tech/mongodb.png" },
+  { name: "MySQL", icon: "/img/tech/mysql.png" },
+  { name: "Prisma", icon: "/img/tech/prisma.png" },
+  { name: "Firebase", icon: "/img/tech/firebase.png" },
+];
+
+const stylingUI: TechItem[] = [
+  { name: "CSS", icon: "/img/tech/CSS.png" },
+  { name: "SCSS", icon: "/img/tech/scss.png" },
+  { name: "Tailwind", icon: "/img/tech/tailwind.png" },
+  { name: "Shadcn", icon: "/img/tech/shadcn.png" },
+  { name: "GSAP", icon: "/img/tech/gsap.png" },
+  { name: "Framer Motion", icon: "/img/tech/framer.png" },
+];
+
+const tools: TechItem[] = [
+  { name: "Git", icon: "/img/tech/git.png" },
+  { name: "GitHub", icon: "/img/tech/github.png" },
+  { name: "Figma", icon: "/img/tech/figma.png" },
+  { name: "Postman", icon: "/img/tech/postman.png" },
+  { name: "Digital Ocean", icon: "/img/tech/do.png" },
+  { name: "Vercel", icon: "/img/tech/vercel.png" },
+  { name: "Webflow", icon: "/img/tech/webflow.png" },
+  { name: "Squarespace", icon: "/img/tech/squarespace.png" },
+];
+
+const allCategories = [
+  { title: "Languages & Frameworks", items: languagesFrameworks, id: "languages" },
+  { title: "Database", items: databases, id: "database" },
+  { title: "Styling & Animation", items: stylingUI, id: "styling" },
+  { title: "Tools", items: tools, id: "tools" },
+];
+---
+
+<section id="skills" class="techstack-section">
+  <div class="techstack-container">
+    <div class="techstack-header">
+      <span class="techstack-label" data-animate="label">What I Work With</span>
+      <h2 class="techstack-title" data-animate="title">TECH STACK</h2>
+    </div>
+
+    <div class="techstack-content">
+      {allCategories.map((category, catIndex) => (
+        <div class="category-block" data-category={category.id} data-index={catIndex}>
+          <div class="category-header">
+            <div class="category-indicator">
+              <span class="indicator-dot"></span>
+              <span class="indicator-line"></span>
+            </div>
+            <h3 class="category-title">{category.title}</h3>
+          </div>
+          
+          <div class="tech-showcase">
+            {category.items.map((tech, techIndex) => (
+              <div 
+                class="tech-card" 
+                data-tech 
+                data-index={techIndex}
+              >
+                <div class="tech-card-bg"></div>
+                <div class="tech-card-content">
+                  <div class="tech-icon-wrapper">
+                    <div class="tech-icon-glow"></div>
+                    <div class="tech-icon">
+                      <img src={tech.icon} alt={tech.name} loading="lazy" />
+                    </div>
+                  </div>
+                  <span class="tech-name">{tech.name}</span>
+                </div>
+                <div class="tech-card-shine"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  @use '../styles/mixins' as *;
+
+  .techstack-section {
+    position: relative;
+    padding: $spacing-20 0;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .techstack-container {
+    @include container;
+    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .techstack-header {
+    text-align: center;
+    margin-bottom: $spacing-16;
+  }
+
+  .techstack-label {
+    display: inline-block;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $secondary-color;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: $spacing-4;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .techstack-title {
+    font-family: $font-title;
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 800;
+    color: var(--text-color);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(40px);
+
+    background: linear-gradient(135deg, var(--text-color) 0%, $secondary-color 50%, var(--text-color) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .techstack-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-12;
+  }
+
+  .category-block {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  .category-indicator {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  .indicator-dot {
+    width: 12px;
+    height: 12px;
+    background: $primary-color;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba($primary-color, 0.5);
+  }
+
+  .indicator-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, $primary-color, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .category-title {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .tech-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  .tech-card {
+    position: relative;
+    padding: $spacing-4 $spacing-6;
+    border-radius: $radius-xl;
+    cursor: pointer;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  .tech-card-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $radius-xl;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    [data-theme='light'] & {
+      background: rgba(116, 10, 3, 0.1);
+      border-color: rgba(116, 10, 3, 0.2);
+    }
+  }
+
+  .tech-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  .tech-icon-wrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+  }
+
+  .tech-icon-glow {
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, rgba($primary-color, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .tech-icon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+  }
+
+  .tech-name {
+    font-family: $font-heading;
+    font-size: $font-size-base;
+    font-weight: 500;
+    color: var(--text-color);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+
+    [data-theme='light'] & {
+      color: var(--text-color);
+    }
+  }
+
+  .tech-card-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    .tech-showcase {
+      gap: $spacing-3;
+    }
+
+    .tech-card {
+      padding: $spacing-3 $spacing-4;
+    }
+
+    .tech-icon-wrapper {
+      width: 32px;
+      height: 32px;
+    }
+
+    .tech-name {
+      font-size: $font-size-sm;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initTechStack = () => {
+    const section = document.querySelector('.techstack-section');
+    if (!section) return;
+
+    const label = document.querySelector('.techstack-label');
+    const title = document.querySelector('.techstack-title');
+
+    if (label) {
+      gsap.to(label, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%'
+        }
+      });
+    }
+
+    if (title) {
+      gsap.to(title, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%'
+        }
+      });
+
+      gsap.to(title, {
+        backgroundPosition: '200% center',
+        duration: 3,
+        repeat: -1,
+        ease: 'none'
+      });
+    }
+
+    const categories = document.querySelectorAll('.category-block');
+
+    categories.forEach((category, catIndex) => {
+      const indicatorLine = category.querySelector('.indicator-line');
+      const indicatorDot = category.querySelector('.indicator-dot');
+      const cards = category.querySelectorAll('.tech-card');
+
+      gsap.to(category, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: category,
+          start: 'top 85%'
+        }
+      });
+
+      if (indicatorDot) {
+        gsap.fromTo(indicatorDot, 
+          { scale: 0 },
+          {
+            scale: 1,
+            duration: 0.5,
+            delay: 0.2,
+            ease: 'back.out(2)',
+            scrollTrigger: {
+              trigger: category,
+              start: 'top 85%'
+            }
+          }
+        );
+
+        gsap.to(indicatorDot, {
+          boxShadow: '0 0 30px rgba(116, 10, 3, 0.8)',
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+      }
+
+      if (indicatorLine) {
+        gsap.to(indicatorLine, {
+          scaleX: 1,
+          duration: 0.8,
+          delay: 0.4,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: category,
+            start: 'top 85%'
+          }
+        });
+      }
+
+      cards.forEach((card, cardIndex) => {
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          delay: 0.1 + cardIndex * 0.05,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: category,
+            start: 'top 80%'
+          }
+        });
+      });
+    });
+
+    const techCards = document.querySelectorAll('.tech-card');
+
+    techCards.forEach((card) => {
+      const cardEl = card as HTMLElement;
+      const bg = cardEl.querySelector('.tech-card-bg') as HTMLElement;
+      const icon = cardEl.querySelector('.tech-icon img') as HTMLElement;
+      const glow = cardEl.querySelector('.tech-icon-glow') as HTMLElement;
+      const shine = cardEl.querySelector('.tech-card-shine') as HTMLElement;
+      const name = cardEl.querySelector('.tech-name') as HTMLElement;
+
+      cardEl.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = cardEl.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+
+        gsap.to(cardEl, {
+          rotateX: -rotateX,
+          rotateY: rotateY,
+          duration: 0.3,
+          ease: 'power2.out',
+          transformPerspective: 1000
+        });
+      });
+
+      cardEl.addEventListener('mouseenter', () => {
+        gsap.to(cardEl, {
+          scale: 1.05,
+          z: 50,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        gsap.to(bg, {
+          background: 'rgba(116, 10, 3, 0.2)',
+          borderColor: 'rgba(116, 10, 3, 0.5)',
+          boxShadow: '0 20px 40px rgba(116, 10, 3, 0.3), inset 0 0 30px rgba(116, 10, 3, 0.1)',
+          duration: 0.4
+        });
+
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1.3,
+            y: -5,
+            rotate: 5,
+            duration: 0.4,
+            ease: 'back.out(1.7)'
+          });
+        }
+
+        if (glow) {
+          gsap.to(glow, {
+            opacity: 1,
+            scale: 1.2,
+            duration: 0.4
+          });
+        }
+
+        if (shine) {
+          gsap.to(shine, {
+            left: '100%',
+            duration: 0.6,
+            ease: 'power2.out'
+          });
+        }
+
+        if (name) {
+          gsap.to(name, {
+            color: '#9b1a10',
+            duration: 0.3
+          });
+        }
+      });
+
+      cardEl.addEventListener('mouseleave', () => {
+        gsap.to(cardEl, {
+          scale: 1,
+          rotateX: 0,
+          rotateY: 0,
+          z: 0,
+          duration: 0.5,
+          ease: 'power3.out'
+        });
+
+        gsap.to(bg, {
+          background: 'rgba(255, 255, 255, 0.05)',
+          borderColor: 'rgba(255, 255, 255, 0.1)',
+          boxShadow: 'none',
+          duration: 0.4
+        });
+
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1,
+            y: 0,
+            rotate: 0,
+            duration: 0.4,
+            ease: 'power2.out'
+          });
+        }
+
+        if (glow) {
+          gsap.to(glow, {
+            opacity: 0,
+            scale: 1,
+            duration: 0.4
+          });
+        }
+
+        if (shine) {
+          gsap.set(shine, { left: '-100%' });
+        }
+
+        if (name) {
+          gsap.to(name, {
+            color: 'var(--text-color)',
+            duration: 0.3
+          });
+        }
+      });
+
+      cardEl.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = cardEl.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(cardEl, {
+          x: x * 0.15,
+          y: y * 0.15,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+
+      cardEl.addEventListener('mouseleave', () => {
+        gsap.to(cardEl, {
+          x: 0,
+          y: 0,
+          duration: 0.6,
+          ease: 'elastic.out(1, 0.5)'
+        });
+      });
+    });
+
+    gsap.to('.bg-orb-1', {
+      y: -150,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    gsap.to('.bg-orb-2', {
+      y: 100,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    gsap.to('.bg-grid', {
+      backgroundPosition: '30px 30px',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.5
+      }
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initTechStack);
+  document.addEventListener('astro:page-load', initTechStack);
+</script>

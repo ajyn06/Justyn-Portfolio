@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
+import TechStack from '../components/TechStack.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -57,21 +58,7 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <section id="skills" class="section">
-      <div class="container">
-        <h2 class="section-title" data-animate="fade">Skills</h2>
-        <div class="skills-grid" data-animate="stagger">
-          <div class="skill-item">HTML/CSS</div>
-          <div class="skill-item">JavaScript</div>
-          <div class="skill-item">TypeScript</div>
-          <div class="skill-item">React</div>
-          <div class="skill-item">Astro</div>
-          <div class="skill-item">Node.js</div>
-          <div class="skill-item">SCSS</div>
-          <div class="skill-item">GSAP</div>
-        </div>
-      </div>
-    </section>
+    <TechStack />
 
     <section id="contact" class="section section-alt">
       <div class="container">
@@ -98,6 +85,17 @@ import Footer from '../components/Footer.astro';
   .section-title {
     text-align: center;
     margin-bottom: $spacing-12;
+    font-family: $font-title;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(40px);
+    background: linear-gradient(135deg, var(--text-color) 0%, $secondary-color 50%, var(--text-color) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     
     &::after {
       content: '';
@@ -172,35 +170,6 @@ import Footer from '../components/Footer.astro';
     border-radius: $radius-full;
     font-size: $font-size-sm;
     font-weight: 500;
-  }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-4;
-    max-width: 600px;
-    margin: 0 auto;
-    
-    @include md {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .skill-item {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: $spacing-4 $spacing-6;
-    border-radius: $radius-lg;
-    text-align: center;
-    font-weight: 500;
-    backdrop-filter: blur(8px);
-    transition: all $transition-base, background 0.6s ease;
-    
-    &:hover {
-      transform: scale(1.05);
-      border-color: rgba($primary-color, 0.4);
-      color: var(--primary-color);
-    }
   }
 
   .contact-content {
