@@ -83,10 +83,16 @@
     font-family: $font-title;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: $spacing-8;
     letter-spacing: 0.05em;
     position: relative;
+    margin-bottom: $spacing-8;
+    opacity: 0;
+    transform: translateY(40px);
+    background: linear-gradient(135deg, var(--text-color) 0%, $secondary-color 50%, var(--text-color) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 
     &::after {
       content: '';
@@ -95,7 +101,7 @@
       left: 0;
       width: 60px;
       height: 3px;
-      background: $primary-color;
+      background: linear-gradient(90deg, $primary-color, $secondary-color);
     }
   }
 
