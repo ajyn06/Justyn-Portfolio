@@ -166,10 +166,19 @@ const projects: Project[] = [
     {
     id: 16,
     title: "Lotus Leaf",
-    description: "Spa Website showing services and ",
+    description: "Spa Website showing services and booking system",
     date: "2024 - 2025",
     category: "webdesign",
     images: ["/proj/lot1.png", "/proj/lot2.png", "/proj/lot3.png"],
+    tags: ["Figma"]
+    },
+    {
+    id: 17,
+    title: "Glance",
+    description: "Facial Treatment Clinic Website showing services",
+    date: "2026",
+    category: "webdesign",
+    images: ["/proj/glance1.png", "/proj/glance2.png", "/proj/glance3.png"],
     tags: ["Figma"]
     },
 ];
@@ -187,9 +196,10 @@ const projects: Project[] = [
     <div class="projects-grid" data-projects-grid>
       {projects.map((project) => (
         <article 
-          class={`project-card ${project.category !== 'fullstack' ? 'hidden' : ''}`}
+          class="project-card"
           data-category={project.category}
           data-project-card
+          style="display:none;"
         >
           <div class="project-slideshow" data-slideshow>
             {project.images.map((image, index) => (
@@ -230,6 +240,20 @@ const projects: Project[] = [
           </div>
         </article>
       ))}
+    </div>
+
+    <div class="pagination" data-pagination>
+      <button class="pagination-btn pagination-prev" data-pagination-prev aria-label="Previous page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="pagination-numbers" data-pagination-numbers></div>
+      <button class="pagination-btn pagination-next" data-pagination-next aria-label="Next page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
   </div>
 </section>
@@ -311,7 +335,7 @@ const projects: Project[] = [
     display: grid;
     gap: $spacing-6;
     grid-template-columns: 1fr;
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
 
     @include sm {
@@ -325,51 +349,34 @@ const projects: Project[] = [
     border-radius: $radius-xl;
     overflow: hidden;
     backdrop-filter: blur(8px);
-    opacity: 0;
-    transform: translateY(30px);
     transition: border-color 0.4s ease;
     will-change: transform, box-shadow;
 
     &:hover {
       border-color: rgba($primary-color, 0.5);
     }
-
-    &.hidden {
-      display: none;
-    }
-
-    &.fade-out {
-      opacity: 0;
-      transform: scale(0.9);
-      pointer-events: none;
-    }
-
-    &.fade-in {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 
   .project-slideshow {
     position: relative;
-    height: 240px;
+    height: 320px;
     overflow: hidden;
     background: linear-gradient(135deg, rgba($primary-color, 0.2), rgba($secondary-color, 0.2));
 
     @include sm {
-      height: 260px;
+      height: 340px;
     }
 
     @include md {
-      height: 220px;
+      height: 300px;
     }
 
     @include lg {
-      height: 200px;
+      height: 280px;
     }
 
     @include xl {
-      height: 220px;
+      height: 300px;
     }
   }
 
@@ -499,24 +506,315 @@ const projects: Project[] = [
       background: rgba($primary-color, 0.25);
     }
   }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+    margin-top: $spacing-12;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--toggle-bg);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      border-color: rgba($primary-color, 0.5);
+      color: var(--text-color);
+      background: rgba($primary-color, 0.1);
+      transform: scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    svg {
+      pointer-events: none;
+    }
+  }
+
+  .pagination-numbers {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  :global(.page-num) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    border-radius: $radius-full;
+    border: 1px solid var(--border-color);
+    background: var(--toggle-bg);
+    color: var(--text-light);
+    font-family: $font-primary;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0 $spacing-2;
+
+    &:hover {
+      border-color: rgba($primary-color, 0.5);
+      color: var(--text-color);
+      background: rgba($primary-color, 0.1);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+      transform: scale(1.1);
+    }
+  }
+
+  :global(.page-ellipsis) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 38px;
+    color: var(--text-light);
+    font-family: $font-primary;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    cursor: default;
+    user-select: none;
+  }
 </style>
 
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
   function initProjectsSection() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('[data-project-card]');
-    const projectsGrid = document.querySelector('[data-projects-grid]');
-    const visibleCards = document.querySelectorAll('[data-project-card]:not(.hidden)');
+    const PROJECTS_PER_PAGE = 4;
 
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const allCards = Array.from(document.querySelectorAll('[data-project-card]')) as HTMLElement[];
+    const projectsGrid = document.querySelector('[data-projects-grid]') as HTMLElement;
+    const pagination = document.querySelector('[data-pagination]') as HTMLElement;
+    const paginationNumbers = document.querySelector('[data-pagination-numbers]') as HTMLElement;
+    const prevBtn = document.querySelector('[data-pagination-prev]') as HTMLButtonElement;
+    const nextBtn = document.querySelector('[data-pagination-next]') as HTMLButtonElement;
+
+    let currentFilter = 'fullstack';
+    let currentPage = 1;
+    let isAnimating = false;
+
+    /* ── helpers ── */
+    function getFilteredCards(): HTMLElement[] {
+      return allCards.filter(
+        (card) => card.getAttribute('data-category') === currentFilter
+      );
+    }
+
+    function getTotalPages(): number {
+      return Math.max(1, Math.ceil(getFilteredCards().length / PROJECTS_PER_PAGE));
+    }
+
+    function getPageCards(page: number): HTMLElement[] {
+      const filtered = getFilteredCards();
+      const start = (page - 1) * PROJECTS_PER_PAGE;
+      return filtered.slice(start, start + PROJECTS_PER_PAGE);
+    }
+
+    function renderPaginationNumbers() {
+      const total = getTotalPages();
+      paginationNumbers.innerHTML = '';
+
+      if (total <= 1) {
+        pagination.style.display = 'none';
+        return;
+      }
+
+      pagination.style.display = '';
+
+      const pages: (number | '...')[] = [];
+      if (total <= 7) {
+        for (let i = 1; i <= total; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (currentPage > 3) pages.push('...');
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(total - 1, currentPage + 1);
+        for (let i = start; i <= end; i++) pages.push(i);
+        if (currentPage < total - 2) pages.push('...');
+        pages.push(total);
+      }
+
+      pages.forEach((p) => {
+        if (p === '...') {
+          const span = document.createElement('span');
+          span.className = 'page-ellipsis';
+          span.textContent = '…';
+          paginationNumbers.appendChild(span);
+        } else {
+          const btn = document.createElement('button');
+          btn.className = `page-num${p === currentPage ? ' active' : ''}`;
+          btn.textContent = String(p);
+          btn.addEventListener('click', () => goToPage(p as number));
+          paginationNumbers.appendChild(btn);
+        }
+      });
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === total;
+    }
+
+    function showPage(page: number, animate = true) {
+      if (isAnimating) return;
+      currentPage = page;
+
+      allCards.forEach((card) => {
+        card.style.display = 'none';
+        gsap.set(card, { opacity: 0, y: 30, scale: 0.95 });
+      });
+
+      const pageCards = getPageCards(page);
+
+      if (animate && pageCards.length > 0) {
+        isAnimating = true;
+        pageCards.forEach((card) => (card.style.display = ''));
+
+        gsap.to(pageCards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: 'power3.out',
+          onComplete: () => {
+            isAnimating = false;
+          },
+        });
+      } else {
+        pageCards.forEach((card) => {
+          card.style.display = '';
+          gsap.set(card, { opacity: 1, y: 0, scale: 1 });
+        });
+      }
+
+      renderPaginationNumbers();
+    }
+
+    function goToPage(page: number) {
+      if (page === currentPage || isAnimating) return;
+
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        gsap.to(window, {
+          scrollTo: projectsSection,
+          duration: 0.6,
+          ease: 'power3.inOut',
+        });
+      }
+
+      isAnimating = true;
+      const currentCards = getPageCards(currentPage);
+
+      if (currentCards.length > 0) {
+        gsap.to(currentCards, {
+          opacity: 0,
+          y: page > currentPage ? -20 : 20,
+          scale: 0.95,
+          duration: 0.3,
+          stagger: 0.04,
+          ease: 'power2.in',
+          onComplete: () => {
+            currentCards.forEach((card) => (card.style.display = 'none'));
+            isAnimating = false;
+            showPage(page, true);
+          },
+        });
+      } else {
+        isAnimating = false;
+        showPage(page, true);
+      }
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        if (!filter || filter === currentFilter) return;
+
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.2, ease: 'back.out(1.7)' });
+
+        const visibleCards = getPageCards(currentPage);
+        if (visibleCards.length > 0) {
+          isAnimating = true;
+          gsap.to(visibleCards, {
+            opacity: 0,
+            y: -20,
+            scale: 0.9,
+            duration: 0.3,
+            stagger: 0.04,
+            ease: 'power2.in',
+            onComplete: () => {
+              visibleCards.forEach((c) => (c.style.display = 'none'));
+              currentFilter = filter;
+              isAnimating = false;
+              showPage(1, true);
+            },
+          });
+        } else {
+          currentFilter = filter;
+          showPage(1, true);
+        }
+      });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) goToPage(currentPage - 1);
+    });
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < getTotalPages()) goToPage(currentPage + 1);
+    });
+
+    const paginationEl = pagination as HTMLElement;
     gsap.fromTo(
-      visibleCards,
-      { opacity: 0, y: 50, scale: 0.95 },
+      paginationEl,
+      { opacity: 0, y: 20 },
       {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: projectsGrid,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+    showPage(1, false);
+
+    const initialCards = getPageCards(1);
+    if (initialCards.length > 0) {
+      gsap.set(initialCards, { opacity: 0, y: 50, scale: 0.95 });
+      gsap.to(initialCards, {
         opacity: 1,
         y: 0,
         scale: 1,
@@ -528,52 +826,10 @@ const projects: Project[] = [
           start: 'top 80%',
           toggleActions: 'play none none none',
         },
-      }
-    );
-
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-
-        filterBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        gsap.fromTo(
-          btn,
-          { scale: 0.95 },
-          { scale: 1, duration: 0.2, ease: 'back.out(1.7)' }
-        );
-
-        projectCards.forEach((card) => {
-          const category = card.getAttribute('data-category');
-          const shouldShow = category === filter;
-
-          if (shouldShow) {
-            card.classList.remove('hidden');
-            gsap.to(card, {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.out',
-            });
-          } else {
-            gsap.to(card, {
-              opacity: 0,
-              scale: 0.9,
-              y: 20,
-              duration: 0.3,
-              ease: 'power2.in',
-              onComplete: () => {
-                card.classList.add('hidden');
-              },
-            });
-          }
-        });
       });
-    });
+    }
 
     const slideshows = document.querySelectorAll('[data-slideshow]');
-
     slideshows.forEach((slideshow) => {
       const slides = slideshow.querySelectorAll('[data-slide]');
       const indicators = slideshow.querySelectorAll('[data-indicator]');
@@ -581,19 +837,12 @@ const projects: Project[] = [
       let intervalId: ReturnType<typeof setInterval> | null = null;
 
       const showSlide = (index: number) => {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
-        });
-        indicators.forEach((indicator, i) => {
-          indicator.classList.toggle('active', i === index);
-        });
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
         currentSlide = index;
       };
 
-      const nextSlide = () => {
-        const next = (currentSlide + 1) % slides.length;
-        showSlide(next);
-      };
+      const nextSlide = () => showSlide((currentSlide + 1) % slides.length);
 
       const startSlideshow = () => {
         if (intervalId) return;
@@ -615,14 +864,12 @@ const projects: Project[] = [
       }
     });
 
-    projectCards.forEach((card) => {
-      const cardElement = card as HTMLElement;
+    allCards.forEach((card) => {
       const slideshow = card.querySelector('[data-slideshow]');
-      const info = card.querySelector('.project-info');
       const title = card.querySelector('.project-title');
       const tags = card.querySelectorAll('.tag');
 
-      cardElement.addEventListener('mouseenter', () => {
+      card.addEventListener('mouseenter', () => {
         gsap.to(card, {
           y: -12,
           scale: 1.02,
@@ -630,7 +877,6 @@ const projects: Project[] = [
           duration: 0.4,
           ease: 'power2.out',
         });
-
         if (slideshow) {
           gsap.to(slideshow.querySelectorAll('img'), {
             scale: 1.1,
@@ -638,14 +884,9 @@ const projects: Project[] = [
             ease: 'power2.out',
           });
         }
-
         if (title) {
-          gsap.to(title, {
-            color: '#9b1a10',
-            duration: 0.3,
-          });
+          gsap.to(title, { color: '#9b1a10', duration: 0.3 });
         }
-
         if (tags.length > 0) {
           gsap.to(tags, {
             scale: 1.05,
@@ -657,7 +898,7 @@ const projects: Project[] = [
         }
       });
 
-      cardElement.addEventListener('mouseleave', () => {
+      card.addEventListener('mouseleave', () => {
         gsap.to(card, {
           y: 0,
           scale: 1,
@@ -665,7 +906,6 @@ const projects: Project[] = [
           duration: 0.4,
           ease: 'power2.out',
         });
-
         if (slideshow) {
           gsap.to(slideshow.querySelectorAll('img'), {
             scale: 1,
@@ -673,14 +913,9 @@ const projects: Project[] = [
             ease: 'power2.out',
           });
         }
-
         if (title) {
-          gsap.to(title, {
-            color: 'var(--text-color)',
-            duration: 0.3,
-          });
+          gsap.to(title, { color: 'var(--text-color)', duration: 0.3 });
         }
-
         if (tags.length > 0) {
           gsap.to(tags, {
             scale: 1,
